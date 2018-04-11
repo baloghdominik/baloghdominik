@@ -26,15 +26,17 @@ public class TodoController {
         List<Todo> allTodo = new ArrayList<>();
         List<Todo> activeTodo = new ArrayList<>();
         todoRepository.findAll().forEach(allTodo::add);
-        for (Todo todo : allTodo) {
+        /*for (Todo todo : allTodo) {
             if (todo.isDone()) {
                 activeTodo.add(todo);
             }
-        }
-        if (activeTodo.size() == 0){
-            return 100;
-        }
-        return (activeTodo.size() / allTodo.size()) * 100;
+        }*/
+        allTodo
+                .stream()
+                .filter(o -> !o.isDone())
+                .forEach(activeTodo::add);
+
+        return (int)(activeTodo.size() / (double)allTodo.size() * 100);
     }
 
     @GetMapping(value={"/", "", "/list"})
