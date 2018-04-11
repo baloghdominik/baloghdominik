@@ -110,7 +110,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="progress my-4">
-                    <div class="progress-bar progress-bar-striped" role="progressbar" th:style="'width:'+ ${percentage} +'%'" th:aria-valuenow="''+ ${percentage}+ ''" aria-valuemin="0" aria-valuemax="100">50</div>
+                    <div class="progress-bar progress-bar-striped" role="progressbar" th:style="'width:'+ ${percentage} +'%'" th:aria-valuenow="''+ ${percentage}+ ''" aria-valuemin="0" aria-valuemax="100" th:text="${percentage} + '%'"></div>
                 </div>
             </div>
         </div>

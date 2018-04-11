@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -21,16 +22,19 @@ public class TodoController {
         this.todoRepository = todoRepository;
     }
 
-    public Double getPercentage(){
+    public int getPercentage(){
         List<Todo> allTodo = new ArrayList<>();
-        todoRepository.findAll().forEach(allTodo::add);
         List<Todo> activeTodo = new ArrayList<>();
+        todoRepository.findAll().forEach(allTodo::add);
         for (Todo todo : allTodo) {
             if (todo.isDone()) {
                 activeTodo.add(todo);
             }
         }
-        return (double)(activeTodo.size()/allTodo.size()) * 100;
+        if (activeTodo.size() == 0){
+            return 100;
+        }
+        return (activeTodo.size() / allTodo.size()) * 100;
     }
 
     @GetMapping(value={"/", "", "/list"})

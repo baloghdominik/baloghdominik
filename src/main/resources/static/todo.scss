@@ -1,15 +1,4 @@
-/*!
-* Aquamarine Pingendo template (https://templates.pingendo.com)
-* Based on: Bootstrap v4.0.0 (https://getbootstrap.com)
-* Copyright 2014-2018 Pingendo (https://pingendo.com)
-*/
- 
 @import url('https://fonts.googleapis.com/css?family=Roboto:200,300,400');
-
-  
-// Options
-// 
-// Quickly modify global styling by enabling or disabling optional features.
   
 $enable-rounded:            true !default;
 $enable-shadows:            true;
@@ -17,10 +6,6 @@ $enable-transitions:        true;
 $enable-hover-media-query:  false;
 $enable-grid-classes:       true;
 $enable-print-styles:       true;
-
-// Variables
-//
-// Colors
 
 $theme-colors: (
   primary: #12bbad,
@@ -176,9 +161,6 @@ body > * {
   }
 }
 
-
-
-/* Animate state between .navbar and .navbar-ontop */
 .navbar  {
   transition: background-color .5s ease-out;
 }
@@ -186,8 +168,6 @@ body > * {
 .navbar-ontop {
   background-color: transparent !important;
 }
-
-/* Animate on entrance */
 
 .animate-in-down {
   transition: all 1.3s ease-out;
@@ -200,7 +180,6 @@ body > * {
   }
 }
 
-
 .animate-in-left {
   transition: all 1.0s ease-out;
 	position:relative;
@@ -211,7 +190,6 @@ body > * {
       left:-5%;
   }
 }
-
 
 .animate-in-right {
   transition: all 1.0s ease-out;
