@@ -90,15 +90,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:switch="${todos.done}" th:each="todos : ${todo}">
+                    <tr th:each="todos : ${todo}">
                         <td th:text="${todos.title}" />
                         <td th:switch="${todos.urgent}" />
                         <i th:case="true" class="fas fa-check"></i>
                         <i th:case="false" class="fas fa-times"></i>
-                        <td>
+                        </td>
                         <td th:switch="${todos.done}" />
-                            <i th:case="true" class="fas fa-check"></i>
-                            <i th:case="false" class="fas fa-times"></i>
+                        <i th:case="true" class="fas fa-check"></i>
+                        <i th:case="false" class="fas fa-times"></i>
+                        </td>
                         <td>
                             <a th:href="'/todo/complete?id='+ ${todos.getId()}" ><i id="check" class="fas fa-check"></i></a>
                             <a th:href="'/todo/delete?id='+ ${todos.getId()}" ><i id="delete" class="fas fa-trash"></i></a>
