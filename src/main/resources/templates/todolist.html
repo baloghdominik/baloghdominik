@@ -92,11 +92,11 @@
                     <tbody>
                     <tr th:each="todos : ${todo}">
                         <td th:text="${todos.title}" />
-                        <td th:switch="${todos.urgent}" />
+                        <td th:switch="${todos.urgent}" >
                         <i th:case="'true'" class="fas fa-check"></i>
                         <i th:case="'false'" class="fas fa-times"></i>
                         </td>
-                        <td th:switch="${todos.done}" />
+                        <td th:switch="${todos.done}">
                         <i th:case="'true'" class="fas fa-check"></i>
                         <i th:case="'false'" class="fas fa-times"></i>
                         </td>
