@@ -1,173 +1,95 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <title>Todo V3</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
+    <title>Todo Application</title>
+    <meta name="author" content="Pingendo">
     <link href="https://fonts.googleapis.com/css?family=Roboto:900" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="todo.css" type="text/css">
     <style>
-        html,
         body {
-            height: 100%;
-            padding: 0;
-            margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: #463e3c;
-        }
-        #container {
-            display: table;
-            width: 60%;
-            height: 100%;
-            text-align: left;
-            padding-top: 0px;
-            margin: 0px auto 0px auto;
-            background-color: #fff;
-            align: center;
-        }
-        #content {
-            height: 100%;
-            margin: 0px auto 0px auto;
-            background-color: #fff;
-            align: center;
-        }
-        #text {
-            padding-right: 20px;
-            padding-left: 20px;
-        }
-        #titletext {
-            font-size: 4em;
-            color: #fff;
             font-family: 'Roboto', sans-serif;
         }
-        #titletext:hover {
-            color: #736863;
-            -webkit-transition: 0.6s ease-in-out;
-            transition: 0.6s ease-in-out;
-        }
-        #title {
-            width: 100%;
-            margin: 0px 0px 0px 0px;
-            background-color: #463e3c;
-            padding-bottom: 10px;
-            padding-top: 10px;
-            text-align: center;
-        }
-        #intro {
-            text-align: center;
-            font-size: 1.2em;
-        }
-        h1 {
-            text-align: center;
-        }
-        img {
-            padding-top: 0px;
-            margin-top: 0px;
-        }
-        input[type=text], select {
-            width: 90%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #463e3c;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        input[type=submit] {
-            width: 90%;
-            background-color: #463e3c;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type=submit]:hover {
-            background-color: #736863;
-            -webkit-transition: 0.5s ease-in-out;
-            transition: 0.5s ease-in-out;
-        }
-        #login {
-            border-radius: 5px;
-            background-color: #d9d9d9;
-            padding: 20px;
-        }
-        table {
-            padding-top: 50px;
-            margin-top: 50px;
-            border-collapse: collapse;
-            width: 90%;
-            color: #fff;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        td, th {
-            border: 3px solid #fff;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr {
-            background-color: #463e3c;
-        }
-
-        tr:hover {
-            background-color: #736863;
-            -webkit-transition: 0.3s ease-in-out;
-            transition: 0.3s ease-in-out;
-        }
-
         i {
-            color: #fff;
+            color: #12bbad;
         }
-
         #check:hover {
             color: green;
             -webkit-transition: 1s ease-in-out;
             transition: 1s ease-in-out;
         }
-
         #delete:hover {
             color: red;
             -webkit-transition: 1s ease-in-out;
             transition: 1s ease-in-out;
         }
-
         #done:hover {
             color: green;
             -webkit-transition: 1s ease-in-out;
             transition: 1s ease-in-out;
         }
-
-        tr:nth-child(even) {
-            background-color: #463e3c;
-        }
-        tr:nth-child(even):hover {
-            background-color: #736863;
-            -webkit-transition: 0.3s ease-in-out;
-            transition: 0.3s ease-in-out;
-        }
     </style>
 </head>
 <body>
-<div id="container">
-    <div id="content">
-        <div id="title">
-            <h1 id="titletext">Todo</h1>
+<nav class="navbar navbar-expand-md bg-primary navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">TodoApp</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar2SupportedContent" aria-controls="navbar2SupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse text-center justify-content-end" id="navbar2SupportedContent"> </div>
+    </div>
+</nav>
+<div class="text-center h-50 py-5" style="background-image: url(todo.png);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!--<h1 class="text-capitalize display-1">T/odo</h1>-->
+            </div>
         </div>
-
-        <center><img th:src="@{/todo.png}" width="100%" height="auto" /></center>
-
-        <div>
-        <center>
-                <table>
+    </div>
+</div>
+<div class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="#" th:action="@{/todo/add}" method="GET">
+                    <div class="col-12 form-group">
+                        <label>Title</label>
+                        <input style="width: 100%; margin-bottom: 20px" type="text" class="form-control" name="title" placeholder="Add your new task!">
+                    </div>
+                    <div class="col-12 form-group">
+                        <label>Urgency</label>
+                        <select style="width: 100%; margin-bottom: 20px" name="urgent">
+                            <option value="true">Urgent</option>
+                            <option default="" value="false">Not urgent</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-block">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
                     <tr>
                         <th>Description</th>
                         <th>Urgent</th>
                         <th>Done</th>
                         <th>Action</th>
                     </tr>
+                    </thead>
+                    <tbody>
                     <tr th:each="todos : ${todo}">
                         <td th:text="${todos.title}" />
                         <td th:text="${todos.urgent}" />
@@ -177,21 +99,28 @@
                             <a th:href="'/todo/delete?id='+ ${todos.getId()}" ><i id="delete" class="fas fa-trash"></i></a>
                         </td>
                     </tr>
-
-            <br/>
-                <form action="#" th:action="@{/todo/add}" method="GET">
-                    <input type="text" name="title" placeholder="Write your new task here..">
-
-                    <select name="urgent">
-                        <option value="true">Urgent</option>
-                        <option default value="false">Not urgent</option>
-                    </select>
-
-                    <input type="submit" value="Submit">
-                </form>
-        </center>
-    </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+<div class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="progress my-4">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
