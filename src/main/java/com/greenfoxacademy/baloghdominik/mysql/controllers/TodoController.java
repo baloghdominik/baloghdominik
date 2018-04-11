@@ -24,19 +24,14 @@ public class TodoController {
 
     public int getPercentage(){
         List<Todo> allTodo = new ArrayList<>();
-        List<Todo> activeTodo = new ArrayList<>();
+        List<Todo> notActiveTodo = new ArrayList<>();
         todoRepository.findAll().forEach(allTodo::add);
-        /*for (Todo todo : allTodo) {
-            if (todo.isDone()) {
-                activeTodo.add(todo);
-            }
-        }*/
         allTodo
                 .stream()
-                .filter(o -> !o.isDone())
-                .forEach(activeTodo::add);
+                .filter(o -> o.isDone())
+                .forEach(notActiveTodo::add);
 
-        return (int)(activeTodo.size() / (double)allTodo.size() * 100);
+        return (int)(notActiveTodo.size() / (double)allTodo.size() * 100);
     }
 
     @GetMapping(value={"/", "", "/list"})
