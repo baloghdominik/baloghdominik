@@ -59,11 +59,11 @@
         <div class="row">
             <div class="col-md-12">
                 <form action="#" th:action="@{/todo/add}" method="GET">
-                    <div class="col-12 form-group">
+                    <div class="form-group">
                         <label>Title</label>
                         <input style="width: 100%; margin-bottom: 20px" type="text" class="form-control" name="title" placeholder="Add your new task!">
                     </div>
-                    <div class="col-12 form-group">
+                    <div class="form-group">
                         <label>Urgency</label>
                         <select style="width: 100%; margin-bottom: 20px" name="urgent">
                             <option value="true">Urgent</option>
@@ -71,7 +71,6 @@
                         </select>
                         <button type="submit" class="btn btn-primary btn-block">Add</button>
                     </div>
-                    <p th:text="${percentage}" />
                 </form>
             </div>
         </div>
