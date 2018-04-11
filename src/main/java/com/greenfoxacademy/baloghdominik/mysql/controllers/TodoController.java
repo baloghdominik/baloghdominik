@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/todo")
 public class TodoController {
@@ -18,14 +21,29 @@ public class TodoController {
         this.todoRepository = todoRepository;
     }
 
+    public Double getPercentage(){
+        List<Todo> allTodo = new ArrayList<>();
+        todoRepository.findAll().forEach(allTodo::add);
+        List<Todo> activeTodo = new ArrayList<>();
+        for (Todo todo : allTodo) {
+            if (todo.isDone()) {
+                activeTodo.add(todo);
+            }
+        }
+        return (double)(activeTodo.size()/allTodo.size()) * 100;
+    }
+
     @GetMapping(value={"/", "", "/list"})
     public String list(@RequestParam(value = "isActive", required = false) String isActive, Model model) {
         if (isActive == null) {
             model.addAttribute("todo", todoRepository.findAll());
+            model.addAttribute("percentage", getPercentage());
         } else if (isActive.equals("true") || isActive.equals("false")) {
             model.addAttribute("todo", todoRepository.findBydone(!Boolean.valueOf(isActive)));
+            model.addAttribute("percentage", getPercentage());
         } else {
             model.addAttribute("todo", todoRepository.findAll());
+            model.addAttribute("percentage", getPercentage());
         }
         return "todolist";
     }
