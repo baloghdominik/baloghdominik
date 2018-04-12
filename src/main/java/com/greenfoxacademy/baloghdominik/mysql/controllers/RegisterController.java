@@ -4,6 +4,7 @@ import com.greenfoxacademy.baloghdominik.mysql.models.Todo;
 import com.greenfoxacademy.baloghdominik.mysql.models.UserModels;
 import com.greenfoxacademy.baloghdominik.mysql.repositories.TodoRepository;
 import com.greenfoxacademy.baloghdominik.mysql.repositories.UserModelsRepository;
+import com.greenfoxacademy.baloghdominik.mysql.services.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,22 +21,18 @@ import java.util.Random;
 @RequestMapping("/register")
 public class RegisterController {
 
-    private String validation;
-
-    private TodoRepository todoRepository;
     private UserModelsRepository userModelsRepository;
+    private Validation validation;
 
     @Autowired
-    public RegisterController(TodoRepository todoRepository, UserModelsRepository userModelsRepository) {
-        this.todoRepository = todoRepository;
+    public RegisterController(Validation validation, UserModelsRepository userModelsRepository) {
         this.userModelsRepository = userModelsRepository;
+        this.validation = validation;
     }
 
     @GetMapping(value={"", "/"})
     public String register(Model model) {
-        TodoController todoController = new TodoController(todoRepository);
-        todoController.generateRandom();
-        model.addAttribute("validationCode", validation);
+        model.addAttribute("validationCode", validation.getValidation());
         return "register";
     }
 
@@ -44,7 +41,8 @@ public class RegisterController {
         @ModelAttribute(value = "password") String password, @ModelAttribute(value = "passwordConfirmation")
                                   String passwordConfirmation, HttpServletResponse response) {
 
-        if (!username.equals("") && !password.equals("") && !passwordConfirmation.equals("") &&code != null && validation.equals(code)) {
+        if (!username.equals("") && !password.equals("") && !passwordConfirmation.equals("") && code != null &&
+                validation.getValidation().equals(code)) {
             if (username.length() > 4 && username.length() < 20) {
                 if (password.length() > 4 && password.length() < 50) {
                     if (password.equals(passwordConfirmation)){
