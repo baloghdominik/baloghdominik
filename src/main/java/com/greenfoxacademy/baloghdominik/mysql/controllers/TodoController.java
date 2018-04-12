@@ -83,7 +83,8 @@ public class TodoController {
             todoRepository.save(newTodo);
             /*generateRandom();*/
         }
-        return  "redirect:../../todo";
+       /* return  "redirect:../../todo";*/
+        return  "redirect:../todo";
     }
 
     @GetMapping(value = "/complete")
