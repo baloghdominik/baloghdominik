@@ -32,17 +32,15 @@ public class RegisterController {
 
     @GetMapping(value={"", "/"})
     public String register(Model model) {
-        model.addAttribute("validationCode", validation.getValidation());
+
         return "register";
     }
 
-    @GetMapping(value = "/{validation}/register")
-    public String add(@PathVariable("validation") String code, @ModelAttribute(value="username") String username,
-        @ModelAttribute(value = "password") String password, @ModelAttribute(value = "passwordConfirmation")
-                                  String passwordConfirmation, HttpServletResponse response) {
+    @GetMapping(value = "/newuser")
+    public String add(@ModelAttribute(value="username") String username, @ModelAttribute(value = "password") String password,
+                      @ModelAttribute(value = "passwordConfirmation") String passwordConfirmation, HttpServletResponse response) {
 
-        if (!username.equals("") && !password.equals("") && !passwordConfirmation.equals("") && code != null &&
-                validation.getValidation().equals(code)) {
+        if (!username.equals("") && !password.equals("") && !passwordConfirmation.equals("")) {
             if (username.length() > 4 && username.length() < 20) {
                 if (password.length() > 4 && password.length() < 50) {
                     if (password.equals(passwordConfirmation)){
