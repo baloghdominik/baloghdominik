@@ -73,8 +73,8 @@ public class TodoController {
         return  "redirect:../todo";
     }
 
-    @GetMapping(value = "/add")
-    public String add(@RequestParam(value = "code", required = false) String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
+    @GetMapping(value = "/add/{validation}")
+    public String add(@PathVariable("validation") String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
         if (title != null && code != null && validation.equals(code)) {
             Todo newTodo = new Todo(title);
             newTodo.setUrgent(urgent);
