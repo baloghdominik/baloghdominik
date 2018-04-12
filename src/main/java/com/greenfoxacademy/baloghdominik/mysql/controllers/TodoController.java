@@ -95,4 +95,14 @@ public class TodoController {
         }
         return  "redirect:../todo";
     }
+
+    @GetMapping(value = "empty")
+    public String empty() {
+        List<Todo> allTodo = new ArrayList<>();
+        todoRepository.findAll().forEach(allTodo::add);
+        for (int i = 0; i < allTodo.size(); i++) {
+            todoRepository.deleteById(allTodo.get(i).getId());
+        }
+        return  "redirect:../todo";
+    }
 }
