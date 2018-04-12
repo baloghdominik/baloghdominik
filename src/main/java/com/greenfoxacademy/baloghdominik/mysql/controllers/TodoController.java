@@ -39,7 +39,7 @@ public class TodoController {
     }
 
     public void generateRandom() {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-";
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < 50) {
@@ -73,12 +73,13 @@ public class TodoController {
         return  "redirect:../todo";
     }
 
-    @GetMapping(value = "/add/{validation}")
+    @GetMapping(value = "/{validation}/add")
     public String add(@PathVariable("validation") String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
         if (title != null && code != null && validation.equals(code)) {
             Todo newTodo = new Todo(title);
             newTodo.setUrgent(urgent);
             todoRepository.save(newTodo);
+            generateRandom();
         }
         return  "redirect:../todo";
     }
