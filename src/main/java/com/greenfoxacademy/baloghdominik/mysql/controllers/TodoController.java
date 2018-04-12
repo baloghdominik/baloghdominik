@@ -65,6 +65,13 @@ public class TodoController {
         return "todolist";
     }
 
+    @GetMapping(value={"/register"})
+    public String reg(Model model) {
+        generateRandom();
+        model.addAttribute("validationCode", validation);
+        return "register";
+    }
+
     @GetMapping(value = "/delete")
     public String delete(@RequestParam(value = "id", required = false) Long deleteId) {
         if (deleteId != null) {
@@ -82,6 +89,17 @@ public class TodoController {
             generateRandom();
         }
         return  "redirect:../../todo";
+    }
+
+    @GetMapping(value = "/{validation}/add")
+    public String register(@PathVariable("validation") String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
+        if (title != null && code != null && validation.equals(code)) {
+            Todo newTodo = new Todo(title);
+            newTodo.setUrgent(urgent);
+            todoRepository.save(newTodo);
+            generateRandom();
+        }
+        return  "redirect:../../register";
     }
 
     @GetMapping(value = "/complete")
