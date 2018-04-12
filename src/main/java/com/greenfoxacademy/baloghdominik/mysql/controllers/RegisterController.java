@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Random;
 
 @Controller
-@RequestMapping("/register")
 public class RegisterController {
 
     private UserModelsRepository userModelsRepository;
@@ -30,13 +29,13 @@ public class RegisterController {
         this.validation = validation;
     }
 
-    @GetMapping(value={"", "/"})
+    @GetMapping(value={"register", "register/"})
     public String register(Model model) {
 
         return "register";
     }
 
-    @GetMapping(value = "/newuser")
+    @GetMapping(value = "register/newuser")
     public String add(@ModelAttribute(value="username") String username, @ModelAttribute(value = "password") String password,
                       @ModelAttribute(value = "passwordConfirmation") String passwordConfirmation, HttpServletResponse response) {
 
