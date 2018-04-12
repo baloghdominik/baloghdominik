@@ -17,7 +17,7 @@ import java.util.Random;
 @RequestMapping("/todo")
 public class TodoController {
 
-   /* private String validation;*/
+    private String validation;
 
     private TodoRepository todoRepository;
 
@@ -38,7 +38,7 @@ public class TodoController {
         return (int)(notActiveTodo.size() / (double)allTodo.size() * 100);
     }
 
-    /*public void generateRandom() {
+    public void generateRandom() {
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
@@ -48,7 +48,7 @@ public class TodoController {
         }
         String saltStr = salt.toString();
         validation = saltStr;
-    }*/
+    }
 
     @GetMapping(value={"/", "", "/list"})
     public String list(@RequestParam(value = "isActive", required = false) String isActive, Model model) {
@@ -60,8 +60,8 @@ public class TodoController {
             model.addAttribute("todo", todoRepository.findAll());
         }
         model.addAttribute("percentage", getPercentage());
-        /*generateRandom();*/
-        /*model.addAttribute("validationCode", validation);*/
+        generateRandom();
+        model.addAttribute("validationCode", validation);
         return "todolist";
     }
 
@@ -73,18 +73,15 @@ public class TodoController {
         return  "redirect:../todo";
     }
 
-   /* @GetMapping(value = "/{validation}/add")*/
-    @GetMapping(value = "/add")
-    /*public String add(@PathVariable("validation") String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {*/
-    public String add(@ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
-        if (!title.equals("") /*&& code != null && validation.equals(code)*/) {
+    @GetMapping(value = "/{validation}/add")
+    public String add(@PathVariable("validation") String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
+        if (!title.equals("") && code != null && validation.equals(code)) {
             Todo newTodo = new Todo(title);
             newTodo.setUrgent(urgent);
             todoRepository.save(newTodo);
-            /*generateRandom();*/
+            generateRandom();
         }
-       /* return  "redirect:../../todo";*/
-        return  "redirect:../todo";
+        return  "redirect:../../todo";
     }
 
     @GetMapping(value = "/complete")
