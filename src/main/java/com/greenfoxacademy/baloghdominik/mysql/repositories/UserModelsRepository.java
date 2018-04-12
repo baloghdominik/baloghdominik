@@ -1,15 +1,12 @@
 package com.greenfoxacademy.baloghdominik.mysql.repositories;
 
 import com.greenfoxacademy.baloghdominik.mysql.models.Todo;
+import com.greenfoxacademy.baloghdominik.mysql.models.UserModels;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
-import java.util.List;
 
 @Component
-public interface TodoRepository extends CrudRepository<Todo, Long> {
+public interface UserModelsRepository extends CrudRepository<UserModels, Long> {
 
-    public List<Todo> findBydone(Boolean bool);
-
-    public List<Todo> findByurgent(Boolean bool);
+    public UserModels findByUsername(String username);
 }
-

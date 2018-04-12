@@ -75,7 +75,7 @@ public class TodoController {
 
     @GetMapping(value = "/{validation}/add")
     public String add(@PathVariable("validation") String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
-        if (title != null && code != null && validation.equals(code)) {
+        if (!title.equals("") && code != null && validation.equals(code)) {
             Todo newTodo = new Todo(title);
             newTodo.setUrgent(urgent);
             todoRepository.save(newTodo);

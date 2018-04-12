@@ -59,18 +59,18 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <form action="#" th:action="@{/todo/{path}/register(path=${validationCode})}" method="GET">
+                <form action="#" th:action="@{/register/{path}/register(path=${validationCode})}" method="POST">
                     <div class="form-group">
                         <label>Username</label>
-                        <input style="width: 100%; margin-bottom: 20px" type="text" class="form-control" name="title" placeholder="Add your new task!">
+                        <input style="width: 100%; margin-bottom: 20px" type="text" class="form-control" name="username" placeholder="Username">
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input style="width: 100%; margin-bottom: 20px" type="password" class="form-control" name="title" placeholder="Add your new task!">
+                        <input style="width: 100%; margin-bottom: 20px" type="password" class="form-control" name="password" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label>Password confirmation</label>
-                        <input style="width: 100%; margin-bottom: 20px" type="password" class="form-control" name="title" placeholder="Add your new task!">
+                        <input style="width: 100%; margin-bottom: 20px" type="password" class="form-control" name="passwordConfirmation" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-block">Register</button>
