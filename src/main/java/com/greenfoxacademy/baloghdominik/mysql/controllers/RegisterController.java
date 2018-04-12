@@ -56,6 +56,6 @@ public class RegisterController {
         } else {
             //Minden mezot tolts ki
         }
-        return  "redirect:../../todo";
+        return  "redirect:../todo";
     }
 }
