@@ -61,7 +61,6 @@
                 <form action="#" th:action="@{/todo/{path}/add(path=${validationCode})}" method="GET">
                     <div class="form-group">
                         <label>Title</label>
-                        <p th:text="${validationCode}"/>
                         <input style="width: 100%; margin-bottom: 20px" type="text" class="form-control" name="title" placeholder="Add your new task!">
                     </div>
                     <div class="form-group">
