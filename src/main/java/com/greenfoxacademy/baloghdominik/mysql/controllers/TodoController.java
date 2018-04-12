@@ -7,13 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.OrderBy;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/todo")
 public class TodoController {
+
+    private String validation;
 
     private TodoRepository todoRepository;
 
@@ -34,18 +38,30 @@ public class TodoController {
         return (int)(notActiveTodo.size() / (double)allTodo.size() * 100);
     }
 
+    public void generateRandom() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 50) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        validation = saltStr;
+    }
+
     @GetMapping(value={"/", "", "/list"})
     public String list(@RequestParam(value = "isActive", required = false) String isActive, Model model) {
         if (isActive == null) {
             model.addAttribute("todo", todoRepository.findAll());
-            model.addAttribute("percentage", getPercentage());
         } else if (isActive.equals("true") || isActive.equals("false")) {
             model.addAttribute("todo", todoRepository.findBydone(!Boolean.valueOf(isActive)));
-            model.addAttribute("percentage", getPercentage());
         } else {
             model.addAttribute("todo", todoRepository.findAll());
-            model.addAttribute("percentage", getPercentage());
         }
+        model.addAttribute("percentage", getPercentage());
+        generateRandom();
+        model.addAttribute("validationCode", validation);
         return "todolist";
     }
 
@@ -58,8 +74,8 @@ public class TodoController {
     }
 
     @GetMapping(value = "/add")
-    public String add(@ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
-        if (title != null) {
+    public String add(@ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent, @ModelAttribute(value = "validation") String code) {
+        if (title != null && validation.equals(code)) {
             Todo newTodo = new Todo(title);
             newTodo.setUrgent(urgent);
             todoRepository.save(newTodo);
