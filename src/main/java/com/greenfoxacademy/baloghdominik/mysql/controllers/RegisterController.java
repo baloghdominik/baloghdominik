@@ -52,14 +52,14 @@ public class RegisterController {
 
 
 
-                        Cookie cookie = new Cookie("uservValidation", validation.toMD5(password));
+                        Cookie cookie = new Cookie("userValidation", validation.toMD5(password));
                         cookie.setPath("/");
                         cookie.setMaxAge(100000);
                         response.addCookie(cookie);
-                        Cookie cookie2 = new Cookie("userID", userid);
-                        cookie2.setPath("/");
-                        cookie2.setMaxAge(100000);
-                        response.addCookie(cookie2);
+                        Cookie cookieID = new Cookie("userID", userid);
+                        cookieID.setPath("/");
+                        cookieID.setMaxAge(100000);
+                        response.addCookie(cookieID);
                     } else {
                         // A megadott jelszavak nem egyeznek
                     }

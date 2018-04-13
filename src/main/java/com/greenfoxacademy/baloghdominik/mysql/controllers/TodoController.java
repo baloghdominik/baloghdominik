@@ -51,7 +51,7 @@ public class TodoController {
         } else {
             model.addAttribute("todo", todoRepository.findAll());
         }
-        model.addAttribute("userName", validation.getLoggedInUsername(response).toString());
+        model.addAttribute("userName", validation.getLoggedInUsername(response));
         model.addAttribute("percentage", getPercentage());
         validation.generateValidationCode();
         model.addAttribute("validationCode", validation.getValidation());
