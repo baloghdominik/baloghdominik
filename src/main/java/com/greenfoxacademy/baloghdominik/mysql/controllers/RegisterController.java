@@ -43,7 +43,9 @@ public class RegisterController {
                     if (password.equals(passwordConfirmation)){
                         UserModels newUser = new UserModels(username, password);
                         userModelsRepository.save(newUser);
-                        response.addCookie(new Cookie(username, password));
+                        Cookie cookie = new Cookie(username, password);
+                        cookie.setPath("../");
+                        response.addCookie(cookie);
                     } else {
                         // A megadott jelszavak nem egyeznek
                     }
