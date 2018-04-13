@@ -37,7 +37,7 @@ public class RegisterController {
     public String add(@ModelAttribute(value="username") String username, @ModelAttribute(value = "password") String password,
                       @ModelAttribute(value = "passwordConfirmation") String passwordConfirmation, HttpServletResponse response) {
 
-        if (!username.equals("") && !password.equals("") && !passwordConfirmation.equals("")) {
+        /*if (!username.equals("") && !password.equals("") && !passwordConfirmation.equals("")) {*/
             if (username.length() > 4 && username.length() < 20) {
                 if (password.length() > 4 && password.length() < 50) {
                     if (password.equals(passwordConfirmation)){
@@ -56,10 +56,10 @@ public class RegisterController {
                 }
             } else {
                 // A felhasznalonev tul hosszu vagy tul rovid
-            }
+            }/*
         } else {
             //Minden mezot tolts ki
-        }
+        }*/
         return  "redirect:../todo";
     }
 }
