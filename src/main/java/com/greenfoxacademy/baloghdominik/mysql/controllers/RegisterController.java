@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 @Controller
@@ -35,7 +38,7 @@ public class RegisterController {
 
     @PostMapping(value = "/newuser")
     public String add(@ModelAttribute(value="username") String username, @ModelAttribute(value = "password") String password,
-                      @ModelAttribute(value = "passwordConfirmation") String passwordConfirmation, HttpServletResponse response) {
+                      @ModelAttribute(value = "passwordConfirmation") String passwordConfirmation, HttpServletResponse response) throws NoSuchAlgorithmException {
 
         /*if (!username.equals("") && !password.equals("") && !passwordConfirmation.equals("")) {*/
             if (username.length() > 4 && username.length() < 20) {
@@ -43,10 +46,25 @@ public class RegisterController {
                     if (password.equals(passwordConfirmation)){
                         UserModels newUser = new UserModels(username, password);
                         userModelsRepository.save(newUser);
-                        Cookie cookie = new Cookie(username, password);
+
+                        String userid = userModelsRepository.findByUsername(username).getId().toString();
+
+                        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+                        messageDigest.update(password.getBytes(),0, password.length());
+                        String hashedPass = new BigInteger(1,messageDigest.digest()).toString(16);
+                        if (hashedPass.length() < 32) {
+                            hashedPass = "0" + hashedPass;
+                        }
+
+
+                        Cookie cookie = new Cookie("uservValidation", hashedPass);
                         cookie.setPath("/");
                         cookie.setMaxAge(100000);
                         response.addCookie(cookie);
+                        Cookie cookie2 = new Cookie("userID", userid);
+                        cookie2.setPath("/");
+                        cookie2.setMaxAge(100000);
+                        response.addCookie(cookie2);
                     } else {
                         // A megadott jelszavak nem egyeznek
                     }
