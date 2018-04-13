@@ -81,6 +81,26 @@ public class Validation {
         return false;
     }
 
+    public boolean checkRegister(String username, String password, String passwordConfirmation){
+        if (username.length() > 3 && password.length() > 3 && username.length() <= 20 && password.length() <= 50) {
+            UserModels thisUser = userModelsRepository.findByUsername(username);
+            if (thisUser == null){
+                if (password.equals(passwordConfirmation)){
+                    UserModels newUser = new UserModels(username, password);
+                    userModelsRepository.save(newUser);
+                    return true;
+                } else {
+                  //passwords are not matching
+                }
+            } else {
+                //username exist
+            }
+        } else {
+            //empty fields
+        }
+        return false;
+    }
+
     public boolean isLoggedIn(HttpServletRequest response) throws NoSuchAlgorithmException {
         boolean isLogged = false;
         if (!getUserIdCookie(response).equals("") && !getUserValidationCookie(response).equals("")) {

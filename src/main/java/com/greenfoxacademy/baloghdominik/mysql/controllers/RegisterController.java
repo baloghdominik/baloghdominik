@@ -39,38 +39,19 @@ public class RegisterController {
     public String add(@ModelAttribute(value="username") String username, @ModelAttribute(value = "password") String password,
                       @ModelAttribute(value = "passwordConfirmation") String passwordConfirmation, HttpServletResponse response) throws NoSuchAlgorithmException {
 
-        /*if (!username.equals("") && !password.equals("") && !passwordConfirmation.equals("")) {*/
-            if (username.length() > 4 && username.length() < 20) {
-                if (password.length() > 4 && password.length() < 50) {
-                    if (password.equals(passwordConfirmation)){
-                        UserModels newUser = new UserModels(username, password);
-                        userModelsRepository.save(newUser);
+        if(validation.checkRegister(username, password, passwordConfirmation)) {
+            Cookie cookie = new Cookie("userValidation", validation.toMD5(userModelsRepository.findByUsername(username).getPassword()));
+            cookie.setPath("/");
+            cookie.setMaxAge(100000);
+            response.addCookie(cookie);
 
-                        String userID = userModelsRepository.findByUsername(username).getId().toString();
+            Cookie cookieID = new Cookie("userID", userModelsRepository.findByUsername(username).getId().toString());
+            cookieID.setPath("/");
+            cookieID.setMaxAge(100000);
+            response.addCookie(cookieID);
 
-
-
-
-                        Cookie cookie = new Cookie("userValidation", validation.toMD5(password));
-                        cookie.setPath("/");
-                        cookie.setMaxAge(100000);
-                        response.addCookie(cookie);
-                        Cookie cookieID = new Cookie("userID", userID);
-                        cookieID.setPath("/");
-                        cookieID.setMaxAge(100000);
-                        response.addCookie(cookieID);
-                    } else {
-                        // A megadott jelszavak nem egyeznek
-                    }
-                } else {
-                    //A jelszavad tul rovid
-                }
-            } else {
-                // A felhasznalonev tul hosszu vagy tul rovid
-            }/*
-        } else {
-            //Minden mezot tolts ki
-        }*/
-        return  "redirect:../todo";
+            return  "redirect:../todo";
+        }
+        return  "redirect:../login";
     }
 }

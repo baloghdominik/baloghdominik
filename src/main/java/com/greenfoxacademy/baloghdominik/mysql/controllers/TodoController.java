@@ -58,7 +58,7 @@ public class TodoController {
             model.addAttribute("validationCode", validation.getValidation());
             return "todolist";
         } else {
-            return "redirect:../register";
+            return "redirect:login";
         }
     }
 
