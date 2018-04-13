@@ -49,15 +49,10 @@ public class RegisterController {
 
                         String userid = userModelsRepository.findByUsername(username).getId().toString();
 
-                        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-                        messageDigest.update(password.getBytes(),0, password.length());
-                        String hashedPass = new BigInteger(1,messageDigest.digest()).toString(16);
-                        if (hashedPass.length() < 32) {
-                            hashedPass = "0" + hashedPass;
-                        }
 
 
-                        Cookie cookie = new Cookie("uservValidation", hashedPass);
+
+                        Cookie cookie = new Cookie("uservValidation", validation.toMD5(password));
                         cookie.setPath("/");
                         cookie.setMaxAge(100000);
                         response.addCookie(cookie);

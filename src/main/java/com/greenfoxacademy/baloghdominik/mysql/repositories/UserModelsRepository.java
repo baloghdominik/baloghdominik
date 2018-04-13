@@ -9,4 +9,6 @@ import org.springframework.stereotype.Component;
 public interface UserModelsRepository extends CrudRepository<UserModels, Long> {
 
     public UserModels findByUsername(String username);
+
+    public UserModels findOneById(Long id);
 }

@@ -2,12 +2,15 @@ package com.greenfoxacademy.baloghdominik.mysql.controllers;
 
 import com.greenfoxacademy.baloghdominik.mysql.models.Todo;
 import com.greenfoxacademy.baloghdominik.mysql.repositories.TodoRepository;
+import com.greenfoxacademy.baloghdominik.mysql.services.Validation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.OrderBy;
+import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,13 +20,13 @@ import java.util.Random;
 @RequestMapping("/todo")
 public class TodoController {
 
-    private String validation;
-
     private TodoRepository todoRepository;
+    private Validation validation;
 
     @Autowired
-    public TodoController(TodoRepository todoRepository) {
+    public TodoController(Validation validation, TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
+        this.validation = validation;
     }
 
     public int getPercentage(){
@@ -38,30 +41,22 @@ public class TodoController {
         return (int)(notActiveTodo.size() / (double)allTodo.size() * 100);
     }
 
-    public void generateRandom() {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
-        while (salt.length() < 50) {
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
-        }
-        String saltStr = salt.toString();
-        validation = saltStr;
-    }
-
     @GetMapping(value={"/", "", "/list"})
-    public String list(@RequestParam(value = "isActive", required = false) String isActive, Model model) {
+    public String list(@RequestParam(value = "isActive", required = false) String isActive, Model model, HttpServletRequest response) throws NoSuchAlgorithmException {
         if (isActive == null) {
-            model.addAttribute("todo", todoRepository.findAll());
+            validation.isLoggedIn(response);
+            model.addAttribute("username", todoRepository.findAll());
+            model.addAttribute("todo", validation.getLoggedInUsername(response));
         } else if (isActive.equals("true") || isActive.equals("false")) {
-            model.addAttribute("todo", todoRepository.findBydone(!Boolean.valueOf(isActive)));
+            model.addAttribute("username", todoRepository.findBydone(!Boolean.valueOf(isActive)));
+            model.addAttribute("todo", validation.getLoggedInUsername(response));
         } else {
             model.addAttribute("todo", todoRepository.findAll());
+            model.addAttribute("username", validation.getLoggedInUsername(response));
         }
         model.addAttribute("percentage", getPercentage());
-        generateRandom();
-        model.addAttribute("validationCode", validation);
+        validation.generateValidationCode();
+        model.addAttribute("validationCode", validation.getValidation());
         return "todolist";
     }
 
@@ -75,11 +70,11 @@ public class TodoController {
 
     @GetMapping(value = "/{validation}/add")
     public String add(@PathVariable("validation") String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
-        if (!title.equals("") && code != null && validation.equals(code)) {
+        if (!title.equals("") && code != null && validation.getValidation().equals(code)) {
             Todo newTodo = new Todo(title);
             newTodo.setUrgent(urgent);
             todoRepository.save(newTodo);
-            generateRandom();
+            validation.generateValidationCode();
         }
         return  "redirect:../../todo";
     }
