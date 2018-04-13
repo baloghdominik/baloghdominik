@@ -45,9 +45,9 @@ public class TodoController {
     public String list(@RequestParam(value = "isActive", required = false) String isActive, Model model, HttpServletRequest response) throws NoSuchAlgorithmException {
         if (isActive == null) {
             validation.isLoggedIn(response);
-            model.addAttribute("username", todoRepository.findAll());
+            model.addAttribute("todo", todoRepository.findAll());
         } else if (isActive.equals("true") || isActive.equals("false")) {
-            model.addAttribute("username", todoRepository.findBydone(!Boolean.valueOf(isActive)));
+            model.addAttribute("todo", todoRepository.findBydone(!Boolean.valueOf(isActive)));
         } else {
             model.addAttribute("todo", todoRepository.findAll());
         }
