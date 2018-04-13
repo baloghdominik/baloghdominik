@@ -45,7 +45,6 @@ public class RegisterController {
                         userModelsRepository.save(newUser);
                         Cookie cookie = new Cookie(username, password);
                         cookie.setPath("../");
-                        cookie.setDomain("https://shrouded-plains-91045.herokuapp.com/");
                         cookie.setMaxAge(100000);
                         response.addCookie(cookie);
                     } else {
