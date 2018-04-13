@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -60,6 +61,24 @@ public class Validation {
             }
         }
         return cookieValue;
+    }
+
+    public boolean checklogin(String username, String password){
+        if (username.length() > 3 && password.length() > 3) {
+            UserModels thisUser = userModelsRepository.findByUsername(username);
+            if (thisUser != null){
+                if (thisUser.getPassword().equals(password)) {
+                    return true;
+                } else {
+                    //wrong password/username
+                }
+            } else {
+                //user does not exist
+            }
+        } else {
+            //empty fields
+        }
+        return false;
     }
 
     public boolean isLoggedIn(HttpServletRequest response) throws NoSuchAlgorithmException {

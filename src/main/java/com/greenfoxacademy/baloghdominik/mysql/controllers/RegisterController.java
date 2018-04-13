@@ -31,8 +31,7 @@ public class RegisterController {
     }
 
     @GetMapping(value={"", "/"})
-    public String register(Model model) {
-
+    public String register() {
         return "register";
     }
 

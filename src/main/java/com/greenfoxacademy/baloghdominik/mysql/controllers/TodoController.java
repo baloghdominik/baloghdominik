@@ -67,7 +67,7 @@ public class TodoController {
         if (deleteId != null) {
             todoRepository.deleteById(deleteId);
         }
-        return  "redirect:../todo";
+        return  "redirect:todo";
     }
 
     @GetMapping(value = "/{validation}/add")
