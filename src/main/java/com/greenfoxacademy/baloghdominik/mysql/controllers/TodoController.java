@@ -48,11 +48,11 @@ public class TodoController {
         if (validation.isLoggedIn(response)) {
             if (isActive == null) {
                 validation.isLoggedIn(response);
-                model.addAttribute("todo", todoRepository.findAll());
+                model.addAttribute("todo", todoRepository.findAllByUsername(validation.getLoggedInUsername(response)));
             } else if (isActive.equals("true") || isActive.equals("false")) {
                 model.addAttribute("todo", todoRepository.findBydone(!Boolean.valueOf(isActive)));
             } else {
-                model.addAttribute("todo", todoRepository.findAll());
+                model.addAttribute("todo", todoRepository.findAllByUsername(validation.getLoggedInUsername(response)));
             }
             model.addAttribute("userName", validation.getLoggedInUsername(response));
             model.addAttribute("percentage", getPercentage());
@@ -73,9 +73,9 @@ public class TodoController {
     }
 
     @GetMapping(value = "/{validation}/add")
-    public String add(@PathVariable("validation") String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent) {
+    public String add(@PathVariable("validation") String code, @ModelAttribute(value="title") String title, @ModelAttribute(value = "urgent") Boolean urgent, HttpServletRequest request) throws NoSuchAlgorithmException {
         if (!title.equals("") && code != null && validation.getValidation().equals(code)) {
-            Todo newTodo = new Todo(title);
+            Todo newTodo = new Todo(title, validation.getLoggedInUsername(request));
             newTodo.setUrgent(urgent);
             todoRepository.save(newTodo);
             validation.generateValidationCode();

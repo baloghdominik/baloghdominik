@@ -13,11 +13,19 @@ public class Todo {
     private String title;
     private boolean urgent;
     private boolean done;
+    private String username;
 
     public Todo(String title){
         this.title = title;
         this.done = false;
         this.urgent = false;
+    }
+
+    public Todo(String title, String username){
+        this.title = title;
+        this.done = false;
+        this.urgent = false;
+        this.username = username;
     }
 
     public Todo(){
@@ -46,5 +54,9 @@ public class Todo {
 
     public Long getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

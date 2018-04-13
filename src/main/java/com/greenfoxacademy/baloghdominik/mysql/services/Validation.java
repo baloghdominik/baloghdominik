@@ -4,6 +4,7 @@ import com.greenfoxacademy.baloghdominik.mysql.models.UserModels;
 import com.greenfoxacademy.baloghdominik.mysql.repositories.UserModelsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

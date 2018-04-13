@@ -11,5 +11,7 @@ public interface TodoRepository extends CrudRepository<Todo, Long> {
     public List<Todo> findBydone(Boolean bool);
 
     public List<Todo> findByurgent(Boolean bool);
+
+    public List<Todo> findAllByUsername(String username);
 }
 
