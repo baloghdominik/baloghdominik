@@ -43,19 +43,23 @@ public class TodoController {
 
     @GetMapping(value={"/", "", "/list"})
     public String list(@RequestParam(value = "isActive", required = false) String isActive, Model model, HttpServletRequest response) throws NoSuchAlgorithmException {
-        if (isActive == null) {
-            validation.isLoggedIn(response);
-            model.addAttribute("todo", todoRepository.findAll());
-        } else if (isActive.equals("true") || isActive.equals("false")) {
-            model.addAttribute("todo", todoRepository.findBydone(!Boolean.valueOf(isActive)));
+        if (validation.isLoggedIn(response)) {
+            if (isActive == null) {
+                validation.isLoggedIn(response);
+                model.addAttribute("todo", todoRepository.findAll());
+            } else if (isActive.equals("true") || isActive.equals("false")) {
+                model.addAttribute("todo", todoRepository.findBydone(!Boolean.valueOf(isActive)));
+            } else {
+                model.addAttribute("todo", todoRepository.findAll());
+            }
+            model.addAttribute("userName", validation.getLoggedInUsername(response));
+            model.addAttribute("percentage", getPercentage());
+            validation.generateValidationCode();
+            model.addAttribute("validationCode", validation.getValidation());
+            return "todolist";
         } else {
-            model.addAttribute("todo", todoRepository.findAll());
+            return "redirect:../register";
         }
-        model.addAttribute("userName", validation.getLoggedInUsername(response));
-        model.addAttribute("percentage", getPercentage());
-        validation.generateValidationCode();
-        model.addAttribute("validationCode", validation.getValidation());
-        return "todolist";
     }
 
     @GetMapping(value = "/delete")
