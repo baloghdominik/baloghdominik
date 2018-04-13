@@ -106,15 +106,18 @@ public class TodoController {
     }
 
     @GetMapping(value = "logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        for(int i = 0; i< cookies.length ; ++i){
-            if(cookies[i].getName().equals("user")){
-                cookies[i].setMaxAge(0);
-                response.addCookie(cookies[i]);
-                break;
-            }
-        }
+    public String logout(HttpServletResponse response) {
+        Cookie cookieUser = new Cookie("userValidation", null);
+        cookieUser.setPath("/");
+        cookieUser.setHttpOnly(true);
+        cookieUser.setMaxAge(0);
+        response.addCookie(cookieUser);
+
+        Cookie cookieID = new Cookie("userID", null);
+        cookieID.setPath("/");
+        cookieID.setHttpOnly(true);
+        cookieID.setMaxAge(0);
+        response.addCookie(cookieID);
         return  "redirect:../login";
     }
 }
