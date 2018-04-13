@@ -47,7 +47,7 @@ public class RegisterController {
                         UserModels newUser = new UserModels(username, password);
                         userModelsRepository.save(newUser);
 
-                        String userid = userModelsRepository.findByUsername(username).getId().toString();
+                        String userID = userModelsRepository.findByUsername(username).getId().toString();
 
 
 
@@ -56,7 +56,7 @@ public class RegisterController {
                         cookie.setPath("/");
                         cookie.setMaxAge(100000);
                         response.addCookie(cookie);
-                        Cookie cookieID = new Cookie("userID", userid);
+                        Cookie cookieID = new Cookie("userID", userID);
                         cookieID.setPath("/");
                         cookieID.setMaxAge(100000);
                         response.addCookie(cookieID);

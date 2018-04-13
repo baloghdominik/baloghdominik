@@ -13,6 +13,10 @@ public class UserModels {
     private String username;
     private String password;
 
+    public UserModels(){
+
+    }
+
     public UserModels(String username, String password) {
         this.username = username;
         this.password = password;
