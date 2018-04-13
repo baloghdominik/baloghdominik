@@ -44,7 +44,7 @@ public class RegisterController {
                         UserModels newUser = new UserModels(username, password);
                         userModelsRepository.save(newUser);
                         Cookie cookie = new Cookie(username, password);
-                        cookie.setPath("../");
+                        cookie.setPath("../../");
                         cookie.setMaxAge(100000);
                         response.addCookie(cookie);
                     } else {
