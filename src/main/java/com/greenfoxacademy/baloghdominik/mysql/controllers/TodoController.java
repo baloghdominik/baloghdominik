@@ -46,14 +46,12 @@ public class TodoController {
         if (isActive == null) {
             validation.isLoggedIn(response);
             model.addAttribute("username", todoRepository.findAll());
-            model.addAttribute("todo", validation.getLoggedInUsername(response));
         } else if (isActive.equals("true") || isActive.equals("false")) {
             model.addAttribute("username", todoRepository.findBydone(!Boolean.valueOf(isActive)));
-            model.addAttribute("todo", validation.getLoggedInUsername(response));
         } else {
             model.addAttribute("todo", todoRepository.findAll());
-            model.addAttribute("username", validation.getLoggedInUsername(response));
         }
+        model.addAttribute("userName", validation.getLoggedInUsername(response).toString());
         model.addAttribute("percentage", getPercentage());
         validation.generateValidationCode();
         model.addAttribute("validationCode", validation.getValidation());
