@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.OrderBy;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,7 +69,7 @@ public class TodoController {
         if (deleteId != null) {
             todoRepository.deleteById(deleteId);
         }
-        return  "redirect:todo";
+        return  "redirect:../todo";
     }
 
     @GetMapping(value = "/{validation}/add")
@@ -101,5 +103,18 @@ public class TodoController {
             todoRepository.deleteById(allTodo.get(i).getId());
         }
         return  "redirect:../todo";
+    }
+
+    @GetMapping(value = "logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie[] cookies = request.getCookies();
+        for(int i = 0; i< cookies.length ; ++i){
+            if(cookies[i].getName().equals("user")){
+                cookies[i].setMaxAge(0);
+                response.addCookie(cookies[i]);
+                break;
+            }
+        }
+        return  "redirect:../login";
     }
 }
