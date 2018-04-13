@@ -31,10 +31,10 @@ public class TodoController {
         this.validation = validation;
     }
 
-    public int getPercentage(){
+    public int getPercentage(String username){
         List<Todo> allTodo = new ArrayList<>();
         List<Todo> notActiveTodo = new ArrayList<>();
-        todoRepository.findAll().forEach(allTodo::add);
+        todoRepository.findAllByUsername(username).forEach(allTodo::add);
         allTodo
                 .stream()
                 .filter(o -> o.isDone())
@@ -55,7 +55,7 @@ public class TodoController {
                 model.addAttribute("todo", todoRepository.findAllByUsername(validation.getLoggedInUsername(response)));
             }
             model.addAttribute("userName", validation.getLoggedInUsername(response));
-            model.addAttribute("percentage", getPercentage());
+            model.addAttribute("percentage", getPercentage(validation.getLoggedInUsername(response)));
             validation.generateValidationCode();
             model.addAttribute("validationCode", validation.getValidation());
             return "todolist";
