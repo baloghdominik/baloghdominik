@@ -32,8 +32,8 @@ public class Validation {
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
-        String saltStr = salt.toString();
-        validation = saltStr;
+        String validationCode = salt.toString();
+        validation = validationCode;
     }
 
     public String getUserIdCookie(HttpServletRequest servletRequest) {
