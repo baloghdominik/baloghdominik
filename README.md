@@ -17,10 +17,8 @@
   
 
 - 🎓 I recently started learning Alpine.js and delved a bit into the intricacies of DevOps as well.  
-  
-<br/>  
 
-## My Skill Set  
+## My Tech Stack  
 
 ### Most commonly used  
 <div align="center">  
@@ -78,8 +76,3 @@
 <div align="right">
 <img src="https://komarev.com/ghpvc/?username=baloghdominik&&style=flat-square" align="right" />
 </div>  
-  
-<br/>  
-
-----
-<div align="center">Generated using <a href="https://profilinator.rishav.dev/" target="_blank">Github Profilinator</a></div>
