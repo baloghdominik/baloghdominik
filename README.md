@@ -1,7 +1,7 @@
 ### **Hey there! 👋**  
   
 
-### <div align="center">I'm Dominik a full-time full-stack developer 👨‍💻 working remotely since 2020 🏡</div>  
+### <div align="center">I'm Dominik a full-time full-stack developer 👨‍💻 working remotely since 2019 🏡</div>  
   
 
 -  🏢 Currently, I primarily work on enterprise resource planning (ERP) systems and webshops, and I absolutely love doing it!  
